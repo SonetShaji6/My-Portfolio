@@ -240,6 +240,26 @@ export default function Contact() {
                   ))}
                 </div>
               </div>
+
+              {/* LinkedIn profile badge */}
+              <div className="bento-tile overflow-hidden p-4 sm:p-5">
+                <div
+                  className="LI-profile-badge mx-auto"
+                  data-version="v1"
+                  data-size="medium"
+                  data-locale="en_US"
+                  data-type="vertical"
+                  data-theme="dark"
+                  data-vanity="sonet-shaji"
+                >
+                  <a
+                    className="LI-simple-link"
+                    href="https://www.linkedin.com/in/sonet-shaji?trk=profile-badge"
+                  >
+                    Sonet Shaji
+                  </a>
+                </div>
+              </div>
             </div>
           </ScrollReveal>
         </div>

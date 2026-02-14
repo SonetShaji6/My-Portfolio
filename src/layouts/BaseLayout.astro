@@ -8,9 +8,13 @@ interface Props {
 }
 
 const {
-  title = 'Sonet — Developer Portfolio',
-  description = 'BCA → MCA student at RIT Kottayam. Full-stack developer, Linux sysadmin, and web security enthusiast.',
+  title = 'Sonet Shaji — Developer Portfolio',
+  description = 'Sonet Shaji — BCA → MCA student at RIT Kottayam, Kerala. Full-stack developer, Linux sysadmin, and web security enthusiast. Explore projects, skills, and contact info.',
 } = Astro.props;
+
+const siteUrl = 'https://www.sonetshaji.in';
+const ogImage = `${siteUrl}/SonetPhoto.jpg`;
+const fullName = 'Sonet Shaji';
 ---
 
 <!doctype html>
@@ -18,11 +22,73 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={fullName} />
+    <meta name="keywords" content="Sonet Shaji, Sonet, SonetShaji, sonet shaji portfolio, sonet shaji developer, sonet shaji RIT Kottayam, sonet shaji Kerala, full-stack developer, web security, Linux sysadmin, MCA student, BCA, cybersecurity, React developer, Astro portfolio" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Sonet Shaji Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={siteUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@SonetShaji" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD Structured Data (Person) — helps Google Knowledge Panel -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sonet Shaji",
+      "alternateName": "SonetShaji6",
+      "url": siteUrl,
+      "image": ogImage,
+      "jobTitle": "Full-Stack Developer & Web Security Enthusiast",
+      "description": description,
+      "email": "sonetshaji5@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kalkoonthal",
+        "addressRegion": "Kerala",
+        "addressCountry": "IN"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Rajive Gandhi Institute of Technology, Kottayam"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/SonetShaji6/",
+        "https://www.linkedin.com/in/sonet-shaji/",
+        "https://x.com/SonetShaji/",
+        "https://www.instagram.com/sonet_shaji/"
+      ],
+      "knowsAbout": ["Web Development", "Linux System Administration", "Cybersecurity", "React", "Python", "JavaScript", "Astro"]
+    })} />
+
     <ViewTransitions />
+    <!-- LinkedIn badge script -->
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
   </head>
   <body class="min-h-screen overflow-x-hidden">
     <!-- Ambient background blobs -->

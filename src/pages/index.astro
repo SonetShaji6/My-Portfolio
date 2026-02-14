@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import TechArsenal from '../components/TechArsenal';
+import SecurityTile from '../components/SecurityTile';
+import ClubCommunity from '../components/ClubCommunity';
+import LocationCard from '../components/LocationCard';
+import ProjectsGrid from '../components/ProjectsGrid';
+import Timeline from '../components/Timeline';
+import Contact from '../components/Contact';
+---
+
+<BaseLayout>
+  <!-- Navbar — immediate, needs scroll listeners -->
+  <Navbar client:load />
+
+  <!-- Hero / About — immediate, has entry animations -->
+  <Hero client:load />
+
+  <!-- ── Bento info grid: Security, Club, Location ── -->
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:py-12 sm:px-6">
+    <div class="grid gap-4 lg:grid-cols-2 lg:gap-5">
+      <!-- Security Tile — full width -->
+      <div class="lg:col-span-2">
+        <SecurityTile client:visible />
+      </div>
+
+      <!-- Club & Community -->
+      <ClubCommunity client:visible />
+
+      <!-- Right column: Location + Quick stat -->
+      <div class="flex flex-col gap-4">
+        <LocationCard client:visible />
+        <!-- Quick stat tile (pure Astro — zero JS) -->
+        <div class="bento-tile flex flex-1 items-center gap-4 p-4 sm:p-5">
+          <div class="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-xl">
+            💡
+          </div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold">Always Learning</p>
+            <p class="font-mono text-[10px] text-[var(--color-text-muted)] tracking-wider uppercase">
+              Currently exploring Rust & Cloud Security
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Arsenal -->
+  <TechArsenal client:visible />
+
+  <!-- Projects Grid -->
+  <ProjectsGrid client:visible />
+
+  <!-- Journey Timeline -->
+  <Timeline client:visible />
+
+  <!-- Contact + Resume -->
+  <Contact client:visible />
+</BaseLayout>

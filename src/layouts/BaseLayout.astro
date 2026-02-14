@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Sonet — Developer Portfolio',
+  description = 'BCA → MCA student at RIT Kottayam. Full-stack developer, Linux sysadmin, and web security enthusiast.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body class="min-h-screen overflow-x-hidden">
+    <!-- Ambient background blobs -->
+    <div class="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-[-15%] left-[5%] h-[500px] w-[500px] rounded-full bg-[var(--color-accent)] opacity-[0.03] blur-[140px]"></div>
+      <div class="absolute top-[30%] right-[-5%] h-[400px] w-[400px] rounded-full bg-purple-600 opacity-[0.025] blur-[120px]"></div>
+      <div class="absolute bottom-[-10%] left-[40%] h-[450px] w-[450px] rounded-full bg-[var(--color-cyber)] opacity-[0.015] blur-[130px]"></div>
+    </div>
+    <slot />
+  </body>
+</html>

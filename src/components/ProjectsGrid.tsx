@@ -1,4 +1,4 @@
-/** Projects grid — Bento-style tilt cards */
+/** Projects grid — Bold brutalist cards */
 import { useEffect, useState } from 'react';
 import ScrollReveal from './motion/ScrollReveal';
 import TiltCard from './motion/TiltCard';
@@ -10,7 +10,6 @@ interface Project {
   image: string;
   tags: string[];
   link: string;
-  featured?: boolean;
 }
 
 const projects: Project[] = [
@@ -19,8 +18,7 @@ const projects: Project[] = [
     description: 'A comprehensive LMS for the MCA LBS crash course featuring mock tests, video classes via signed URLs, and a payment-proof admin approval system.',
     image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80',
     tags: ['Next.js 16', 'Supabase', 'TypeScript', 'Tailwind CSS'],
-    link: '#', // Add your repo link here
-    featured: true,
+    link: '#',
   },
   {
     title: 'LifeSync',
@@ -28,7 +26,6 @@ const projects: Project[] = [
     image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&q=80',
     tags: ['MongoDB', 'Express', 'React', 'Node.js'],
     link: '#',
-    featured: true,
   },
   {
     title: 'RelifCamp-Nexus (DSTR-M)',
@@ -44,20 +41,7 @@ const projects: Project[] = [
     tags: ['MERN Stack', 'JavaScript', 'Context API'],
     link: '#',
   },
-
 ];
-
-const tagColors: Record<string, string> = {
-  React: 'bg-sky-500/10 text-sky-400 border-sky-500/15',
-  TypeScript: 'bg-blue-500/10 text-blue-400 border-blue-500/15',
-  'Next.js': 'bg-white/5 text-white/80 border-white/10',
-  Astro: 'bg-orange-500/10 text-orange-400 border-orange-500/15',
-  Rust: 'bg-amber-500/10 text-amber-400 border-amber-500/15',
-};
-
-function getTagClass(tag: string) {
-  return tagColors[tag] ?? 'bg-purple-500/10 text-purple-300 border-purple-500/15';
-}
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isTouch, setIsTouch] = useState(false);
@@ -68,31 +52,41 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   const card = (
     <TiltCard className="group h-full">
-      <div className="bento-tile flex h-full flex-col overflow-hidden transition-all">
+      <div className="solid-card hover-red-border flex h-full flex-col overflow-hidden relative cursor-crosshair group-hover:-translate-y-2 transition-transform duration-500">
+        
+        {/* Number Badge */}
+        <div className="absolute top-4 left-4 z-20 bg-[var(--color-bg-primary)] border border-[var(--color-border-subtle)] px-2 py-1 flex items-center justify-center font-display text-xl text-white group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)] transition-colors">
+          0{index + 1}
+        </div>
+
         {/* Image */}
-        <div className="relative h-40 sm:h-44 overflow-hidden rounded-t-[1.25rem]">
+        <div className="relative h-48 sm:h-64 overflow-hidden border-b border-[var(--color-border-subtle)] group-hover:border-[var(--color-accent)] transition-colors">
           <img
             src={project.image}
             alt={project.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-card)] via-transparent to-transparent" />
+          {/* Red Hue Overlay on idle */}
+          <div className="absolute inset-0 mix-blend-multiply bg-[var(--color-accent-dark)] opacity-40 group-hover:opacity-0 transition-opacity duration-500" />
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col p-4 sm:p-5">
-          <h3 className="mb-1.5 font-display text-base sm:text-lg">{project.title}</h3>
-          <p className="mb-4 flex-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <div className="flex flex-1 flex-col p-6 sm:p-8">
+          <h3 className="mb-2 font-display uppercase tracking-widest text-xl sm:text-2xl text-white group-hover:text-[var(--color-accent)] transition-colors">
+             {project.title}
+          </h3>
+          <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--color-text-secondary)] font-mono line-clamp-3">
             {project.description}
           </p>
 
           {/* Tags */}
-          <div className="mb-3 flex flex-wrap gap-1.5">
+          <div className="mb-6 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className={`rounded-full border px-2 py-0.5 font-mono text-[10px] font-medium ${getTagClass(tag)}`}
+                className="bg-[var(--color-bg-card)] border border-[var(--color-border-subtle)] px-2.5 py-1 font-mono text-[10px] tracking-wider uppercase text-[var(--color-text-muted)] group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-text-primary)] transition-colors"
+                style={{ transitionDelay: `${Math.random() * 100}ms` }}
               >
                 {tag}
               </span>
@@ -102,39 +96,41 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {/* Link */}
           <a
             href={project.link}
-            className="inline-flex items-center gap-1 font-mono text-xs font-medium text-[var(--color-accent-light)] transition-colors hover:text-white"
+            className="group/link mt-auto inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-[var(--color-text-primary)] transition-colors hover:text-[var(--color-accent)]"
           >
-            view_project →
+            Access_Repository
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform transition-transform group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </a>
         </div>
       </div>
     </TiltCard>
   );
 
-  // Only wrap in Parallax on non-touch devices
+  // Focus effect for parallax offset
   if (isTouch) return card;
-  return <Parallax offset={12 + index * 4}>{card}</Parallax>;
+  return <Parallax offset={20 + index * 5}>{card}</Parallax>;
 }
 
 export default function ProjectsGrid() {
   return (
-    <section id="projects" className="relative px-4 py-20 sm:py-24 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section id="projects" className="relative px-4 py-24 sm:py-32 sm:px-6">
+      <div className="mx-auto max-w-7xl">
         <ScrollReveal>
-          <p className="mb-2 text-center font-mono text-xs tracking-widest text-[var(--color-accent)] uppercase">
-            ./projects
-          </p>
-          <h2 className="mb-4 text-center font-display text-3xl sm:text-4xl lg:text-5xl">
-            Featured Work
-          </h2>
-          <p className="mx-auto mb-12 sm:mb-14 max-w-md text-center text-sm text-[var(--color-text-secondary)]">
-            A selection of projects that showcase my full-stack development skills.
-          </p>
+          <div className="flex flex-col items-center justify-center mb-16">
+            <span className="font-mono text-xs tracking-[0.2em] text-[var(--color-accent)] border border-[var(--color-accent)] px-4 py-2 mb-6">
+               WORK_DIR
+            </span>
+            <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tighter text-white">
+              Selected Projects
+            </h2>
+          </div>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:gap-5">
+        <div className="grid gap-8 sm:grid-cols-2 lg:gap-12">
           {projects.map((project, i) => (
-            <ScrollReveal key={project.title} delay={i * 0.08}>
+            <ScrollReveal key={project.title} delay={i * 0.1}>
               <ProjectCard project={project} index={i} />
             </ScrollReveal>
           ))}

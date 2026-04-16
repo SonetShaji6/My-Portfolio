@@ -1,4 +1,4 @@
-/** Contact section — mailto form + confetti resume button */
+/** Contact section — Minimal brutalist mailto form + confetti resume button */
 import { useState, useCallback } from 'react';
 import { motion } from 'motion/react';
 import ScrollReveal from './motion/ScrollReveal';
@@ -69,7 +69,7 @@ function ResumeButton() {
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#7c5cfc', '#9b82ff', '#c084fc', '#00ffc8', '#f472b6'],
+      colors: ['#D90429', '#EF233C', '#8D0801', '#FFFFFF', '#111111'],
     });
 
     // Simulate download (replace href with real resume URL)
@@ -84,7 +84,7 @@ function ResumeButton() {
       <motion.button
         onClick={handleClick}
         whileTap={{ scale: 0.95 }}
-        className="relative inline-flex items-center gap-2 rounded-full border border-[var(--color-border-glass)] bg-white/[0.03] px-6 py-3 font-mono text-sm font-medium transition-all hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent)]/5"
+        className="relative inline-flex items-center gap-2 border-2 border-[var(--color-accent)] bg-transparent hover:bg-[var(--color-accent)] text-white px-8 py-3 font-mono text-sm font-bold uppercase tracking-wider transition-colors duration-300"
         disabled={downloading}
       >
         {downloading ? (
@@ -92,16 +92,16 @@ function ResumeButton() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-              className="h-4 w-4 rounded-full border-2 border-[var(--color-accent)] border-t-transparent"
+              className="h-4 w-4 rounded-full border-2 border-current border-t-transparent"
             />
-            Downloading...
+            DOWNLOADING...
           </>
         ) : (
           <>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            Download Resume
+            RESUME_PDF
           </>
         )}
       </motion.button>
@@ -128,30 +128,32 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative px-4 pb-12 pt-24 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section id="contact" className="relative py-24 sm:py-32 w-full">
+      <div className="mx-auto w-full">
         <ScrollReveal>
-          <p className="mb-2 text-center font-mono text-xs tracking-widest text-[var(--color-accent)] uppercase">
-            ./contact
-          </p>
-          <h2 className="mb-4 text-center font-display text-3xl sm:text-4xl lg:text-5xl">
-            Let's Connect
-          </h2>
-          <p className="mx-auto mb-10 sm:mb-12 max-w-md text-center text-sm text-[var(--color-text-secondary)]">
-            Open to opportunities, collaborations, and conversations about tech.
-          </p>
+          <div className="flex flex-col items-center justify-center mb-16">
+            <span className="font-mono text-xs tracking-widest text-[var(--color-accent)] border border-[var(--color-accent)] px-3 py-1 mb-6">
+              [ EOF ]
+            </span>
+            <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tighter text-white">
+              Let's Connect
+            </h2>
+            <p className="mt-4 text-center max-w-sm text-[var(--color-text-secondary)] font-mono text-xs uppercase tracking-widest">
+              Open to opportunities & collaborations
+            </p>
+          </div>
         </ScrollReveal>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          {/* Contact Form — glassmorphism */}
-          <ScrollReveal delay={0.1}>
+        <div className="grid gap-12 lg:gap-8 lg:grid-cols-2">
+          {/* Contact form */}
+          <ScrollReveal delay={0.1} className="h-full">
             <form
               onSubmit={handleSubmit}
-              className="glass rounded-2xl p-5 sm:p-6 lg:p-8"
+              className="solid-card hover-red-border p-6 sm:p-8 relative"
             >
-              <div className="mb-4">
-                <label className="mb-1.5 block font-mono text-[10px] tracking-wider text-[var(--color-text-muted)] uppercase">
-                  Name
+              <div className="mb-6">
+                <label className="mb-2 block font-mono text-xs tracking-widest text-white uppercase">
+                  Name_
                 </label>
                 <input
                   type="text"
@@ -159,12 +161,12 @@ export default function Contact() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Your name"
-                  className="w-full rounded-lg border border-[var(--color-border-glass)] bg-white/[0.02] px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)]/40 focus:bg-white/[0.04]"
+                  className="w-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)] font-mono"
                 />
               </div>
-              <div className="mb-4">
-                <label className="mb-1.5 block font-mono text-[10px] tracking-wider text-[var(--color-text-muted)] uppercase">
-                  Email
+              <div className="mb-6">
+                <label className="mb-2 block font-mono text-xs tracking-widest text-white uppercase">
+                  Email_
                 </label>
                 <input
                   type="email"
@@ -172,12 +174,12 @@ export default function Contact() {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="you@email.com"
-                  className="w-full rounded-lg border border-[var(--color-border-glass)] bg-white/[0.02] px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)]/40 focus:bg-white/[0.04]"
+                  className="w-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)] font-mono"
                 />
               </div>
-              <div className="mb-5">
-                <label className="mb-1.5 block font-mono text-[10px] tracking-wider text-[var(--color-text-muted)] uppercase">
-                  Message
+              <div className="mb-8">
+                <label className="mb-2 block font-mono text-xs tracking-widest text-white uppercase">
+                  Message_
                 </label>
                 <textarea
                   rows={4}
@@ -185,22 +187,20 @@ export default function Contact() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="What's on your mind?"
-                  className="w-full resize-none rounded-lg border border-[var(--color-border-glass)] bg-white/[0.02] px-4 py-2.5 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)]/40 focus:bg-white/[0.04]"
+                  className="w-full resize-none border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] outline-none transition-colors focus:border-[var(--color-accent)] font-mono"
                 />
               </div>
-              <Magnetic strength={0.15}>
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-[var(--color-accent)] px-6 py-2.5 text-sm font-semibold text-white transition-all hover:brightness-110 glow"
-                >
-                  {sent ? '✓ Opening Mail Client…' : 'Send Message'}
-                </button>
-              </Magnetic>
+              <button
+                type="submit"
+                className="w-full bg-[var(--color-accent)] text-white px-2 sm:px-6 py-4 font-mono text-xs sm:text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+              >
+                {sent ? '✓ PREPARING CLIENT...' : 'SEND MESSAGE'}
+              </button>
               {sent && (
                 <motion.p
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-3 text-center font-mono text-xs text-[var(--color-cyber)]"
+                  className="mt-4 text-center font-mono text-[10px] text-[var(--color-accent)] uppercase tracking-wider"
                 >
                   Your default mail app should open with the message pre-filled.
                 </motion.p>
@@ -209,55 +209,55 @@ export default function Contact() {
           </ScrollReveal>
 
           {/* Right column — socials + resume */}
-          <ScrollReveal delay={0.2}>
-            <div className="flex h-full flex-col gap-4">
+          <ScrollReveal delay={0.2} className="h-full">
+            <div className="flex h-full flex-col justify-between gap-8">
               {/* Resume download */}
-              <div className="bento-tile flex flex-col items-center justify-center gap-4 p-6 sm:p-8">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-2xl">
-                  📄
-                </div>
-                <p className="text-center text-sm text-[var(--color-text-secondary)]">
-                  Grab a copy of my resume for the full picture.
+              <div className="solid-card hover-red-border p-8 border-l-4 border-l-[var(--color-accent)] flex flex-col justify-center items-start">
+                <h3 className="font-display text-2xl uppercase text-white mb-4">Credentials</h3>
+                <p className="text-sm text-[var(--color-text-secondary)] font-mono mb-8">
+                  Available for independent work, full-time positions, and open source collaboration. Grab my resume for the full timeline.
                 </p>
                 <ResumeButton />
               </div>
 
-              {/* Social links */}
-              <div className="bento-tile flex-1 p-5 sm:p-6">
-                <p className="mb-4 font-mono text-[10px] tracking-wider text-[var(--color-text-muted)] uppercase">
-                  Find me online
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {socials.map((social) => (
-                    <SpringHover
-                      key={social.name}
-                      href={social.href}
-                      label={social.name}
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--color-border-glass)] bg-white/[0.02] text-[var(--color-text-secondary)] transition-all hover:border-[var(--color-border-glass-hover)] hover:text-white"
-                    >
-                      {social.icon}
-                    </SpringHover>
-                  ))}
+              {/* Socials & Badge */}
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+                <div className="solid-card p-6 flex flex-col justify-center">
+                  <p className="mb-6 font-mono text-xs tracking-widest text-white uppercase">
+                    Network
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    {socials.map((social) => (
+                      <SpringHover
+                        key={social.name}
+                        href={social.href}
+                        label={social.name}
+                        className="flex h-12 w-12 items-center justify-center border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white"
+                      >
+                        {social.icon}
+                      </SpringHover>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* LinkedIn profile badge */}
-              <div className="bento-tile overflow-hidden p-4 sm:p-5">
-                <div
-                  className="LI-profile-badge mx-auto"
-                  data-version="v1"
-                  data-size="medium"
-                  data-locale="en_US"
-                  data-type="vertical"
-                  data-theme="dark"
-                  data-vanity="sonet-shaji"
-                >
-                  <a
-                    className="LI-simple-link"
-                    href="https://www.linkedin.com/in/sonet-shaji?trk=profile-badge"
+                <div className="solid-card overflow-hidden h-full">
+                  <div
+                    style={{ display: 'none' }}
+                    className="LI-profile-badge mx-auto bg-white/5 w-full h-full min-h-[200px]"
+                    data-version="v1"
+                    data-size="medium"
+                    data-locale="en_US"
+                    data-type="vertical"
+                    data-theme="dark"
+                    data-vanity="sonet-shaji"
                   >
-                    Sonet Shaji
-                  </a>
+                    <a
+                      className="LI-simple-link"
+                      href="https://www.linkedin.com/in/sonet-shaji?trk=profile-badge"
+                    >
+                      Sonet Shaji
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -265,14 +265,16 @@ export default function Contact() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 border-t border-[var(--color-border-glass)] pt-8 text-center">
-          <p className="font-mono text-xs text-[var(--color-text-muted)]">
-            © {new Date().getFullYear()} Sonet · Built with{' '}
-            <a href="https://astro.build" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent-light)] hover:underline">Astro</a>,{' '}
-            <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent-light)] hover:underline">Tailwind</a>
-            {' & '}
-            <a href="https://motion.dev" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent-light)] hover:underline">Motion</a>
+        <div className="mt-24 border-t border-[var(--color-border-subtle)] pt-12 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-display font-medium text-xl text-white">
+            SONET.
           </p>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text-muted)]">
+            © {new Date().getFullYear()} · SYSTEM ONLINE
+          </p>
+          <div className="font-mono text-[10px] text-[var(--color-text-secondary)] uppercase tracking-wider space-x-2">
+            <span>Astro</span> <span>/</span> <span>Tailwind</span> <span>/</span> <span className="text-[var(--color-accent)]">Lenis</span>
+          </div>
         </div>
       </div>
     </section>

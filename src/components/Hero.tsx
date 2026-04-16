@@ -1,4 +1,4 @@
-/** Hero / About — Bento profile tile with glowing aura + intro + typewriter */
+/** Hero / About — Asymmetrical Layout */
 import { motion } from 'motion/react';
 import Magnetic from './motion/Magnetic';
 import ScrollReveal from './motion/ScrollReveal';
@@ -6,117 +6,83 @@ import Typewriter from './Typewriter';
 
 export default function Hero() {
   return (
-    <section id="about" className="relative min-h-screen px-4 pt-28 pb-12 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        {/* ── Top: Profile + Intro ── */}
-        <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
-          {/* Profile Image tile */}
-          <ScrollReveal className="lg:col-span-1" delay={0.1}>
-            <Magnetic strength={0.15} radius={200} className="h-full">
-              <div className="bento-tile flex h-full min-h-[320px] flex-col items-center justify-center p-6 overflow-hidden">
-                {/* Aura ring */}
-                <div className="relative mb-5">
-                  <div className="absolute -inset-4 rounded-full profile-aura opacity-60 blur-md"></div>
-                  <motion.div
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <div className="relative h-36 w-36 overflow-hidden rounded-full border-2 border-[var(--color-accent)]/30 lg:h-44 lg:w-44">
-                      <img
-                        src="SonetPhoto.jpg"
-                        alt="Sonet — Developer"
-                        className="h-full w-full object-cover"
-                        loading="eager"
-                      />
-                    </div>
-                  </motion.div>
-                </div>
-                <h2 className="font-display text-2xl text-gradient lg:text-3xl">Sonet</h2>
-                <p className="mt-1 font-mono text-xs text-[var(--color-text-secondary)] tracking-wider">MCA Student · Developer</p>
-              </div>
-            </Magnetic>
-          </ScrollReveal>
-
-          {/* Intro tile */}
-          <ScrollReveal className="lg:col-span-2" delay={0.2}>
-            <div className="bento-tile flex h-full flex-col justify-center p-6 sm:p-8 lg:p-10">
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mb-2 font-mono text-xs text-[var(--color-accent)] tracking-widest uppercase"
-              >
-                Hello, World —
-              </motion.p>
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.7 }}
-                className="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl xl:text-6xl"
-              >
-                Hi, I'm <span className="text-gradient">Sonet</span>,
-              </motion.h1>
+    <section id="about" className="relative min-h-screen pt-32 pb-12 px-4 sm:px-6 lg:px-12 flex flex-col justify-center">
+      <div className="mx-auto max-w-7xl w-full">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Text Column */}
+          <div className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1 relative z-10">
+            <ScrollReveal delay={0.1}>
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.85, duration: 0.5 }}
-                className="mt-3 min-h-[2.2em] sm:min-h-[2.5em]"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <p className="text-sm sm:text-base text-[var(--color-text-secondary)]">
+                <p className="font-mono text-sm sm:text-base text-[var(--color-accent)] uppercase tracking-[0.3em] mb-4">
+                  Systems & Web
+                </p>
+                <h1 className="font-display text-[3.5rem] leading-[1.1] sm:text-7xl lg:text-8xl xl:text-[7rem] tracking-tight uppercase">
+                  SONET <br/>
+                  <span className="text-[var(--color-accent)]">SHAJI</span>.
+                </h1>
+              </motion.div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <div className="mt-8 relative pl-6 border-l-2 border-[var(--color-border-subtle)] group hover:border-[var(--color-accent)] transition-colors duration-500">
+                <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] font-light max-w-lg mb-2">
                   I am a <Typewriter />
                 </p>
-              </motion.div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.0 }}
-                className="mt-4 max-w-md text-sm leading-relaxed text-[var(--color-text-secondary)]"
-              >
-                A BCA graduate now pursuing MCA at RIT Kottayam — passionate about
-                full-stack development, Linux system administration, and web security.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 }}
-                className="mt-6 flex flex-wrap gap-3"
-              >
+                <p className="text-sm text-[var(--color-text-muted)] max-w-md leading-relaxed">
+                  MCA student at RIT Kottayam. Passionate about building robust web applications, exploring Linux systems, and diving deep into cybersecurity.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
+              <div className="mt-10 flex flex-wrap gap-4 items-center">
                 <Magnetic strength={0.2}>
-                  <a
-                    href="#projects"
-                    className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:brightness-110 glow"
-                  >
-                    View Projects
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <a href="#projects" className="group relative inline-flex h-12 items-center justify-center overflow-hidden bg-[var(--color-text-primary)] px-8 font-medium text-black duration-300 hover:bg-[var(--color-accent)] hover:text-white transition-colors">
+                    <span className="relative font-mono uppercase tracking-wider text-sm font-bold">View Work</span>
                   </a>
                 </Magnetic>
-                <a
-                  href="#contact"
-                  className="glass glass-hover inline-flex items-center rounded-full px-5 py-2.5 text-sm font-medium transition-all"
-                >
-                  Get In Touch
-                </a>
-              </motion.div>
-            </div>
-          </ScrollReveal>
-        </div>
 
-        {/* ── Status bar ── */}
-        <ScrollReveal delay={0.3}>
-          <div className="bento-tile mt-4 grid grid-cols-3 gap-4 p-5 lg:mt-5">
-            {[
-              { label: 'Focus', value: 'Full-Stack', icon: '⚡' },
-              { label: 'Education', value: 'MCA @ RIT', icon: '🎓' },
-              { label: 'System', value: 'Fedora Linux', icon: '🐧' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <span className="mb-1 block text-xl sm:text-2xl">{stat.icon}</span>
-                <p className="font-mono text-xs sm:text-sm font-semibold">{stat.value}</p>
-                <p className="font-mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider">{stat.label}</p>
+                <a href="#contact" className="group flex items-center gap-2 px-6 py-3 font-mono text-sm uppercase tracking-widest text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-accent)]">
+                  <span className="relative">
+                    Contact Me
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></span>
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
               </div>
-            ))}
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
+
+          {/* Right Image/Visual Column */}
+          <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end">
+            <ScrollReveal delay={0.2}>
+              <Magnetic strength={0.05} radius={100}>
+                <motion.div 
+                  className="relative group cursor-pointer"
+                  whileHover={{ scale: 0.98 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="absolute -inset-2 bg-[var(--color-accent)] opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-2xl z-0 rounded-full" />
+                  
+                  <div className="relative z-10 overflow-hidden w-64 h-64 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] rounded-full border border-[var(--color-border-subtle)] transition-colors duration-500 group-hover:border-[var(--color-accent)] grayscale group-hover:grayscale-0">
+                    <img
+                      src="SonetPhoto.jpg"
+                      alt="Sonet Shaji"
+                      className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
+                      loading="eager"
+                    />
+                  </div>
+                </motion.div>
+              </Magnetic>
+            </ScrollReveal>
+          </div>
+
+        </div>
       </div>
     </section>
   );

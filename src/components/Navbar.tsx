@@ -1,4 +1,4 @@
-/** Studio-style floating navbar with mobile hamburger */
+/** Solid, Minimal Navbar with Bold Red Accents */
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -47,95 +47,101 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-2rem)] sm:w-auto"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-500 ${
+        scrolled ? 'bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)]' : 'bg-transparent'
+      }`}
     >
-      <motion.div
-        layout
-        animate={{
-          paddingBlock: scrolled ? 6 : 10,
-          paddingInline: scrolled ? 12 : 20,
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="glass flex items-center justify-between sm:justify-start gap-1 rounded-full shadow-lg shadow-black/20"
-      >
-        {/* Logo */}
-        <a href="#about" className="mr-2 flex items-center gap-2 pr-2 sm:pr-3 sm:mr-3 border-r border-[var(--color-border-glass)]">
-          <span className="font-display text-lg text-gradient">S</span>
-        </a>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+        <div className="flex h-20 items-center justify-between">
+          {/* Logo */}
+          <a href="#about" className="group flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center bg-[var(--color-accent)] text-white font-display font-bold text-xl group-hover:bg-white group-hover:text-black transition-colors duration-300">
+              S
+            </div>
+          </a>
 
-        {/* Desktop links */}
-        <div className="hidden sm:flex items-center gap-0.5">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setActive(link.href)}
-              className="relative rounded-full px-3 py-1.5 text-xs font-medium font-mono tracking-wide transition-colors"
-              style={{ color: active === link.href ? '#eeeef2' : '#6b6b80' }}
-            >
-              {active === link.href && (
-                <motion.span
-                  layoutId="nav-active"
-                  className="absolute inset-0 rounded-full bg-[var(--color-accent)] opacity-[0.12]"
-                  transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                />
-              )}
-              <span className="relative z-10">{link.label}</span>
-            </a>
-          ))}
+          {/* Desktop links */}
+          <div className="hidden sm:flex items-center gap-8">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setActive(link.href)}
+                className="group relative font-mono text-xs uppercase tracking-widest transition-colors hover:text-white"
+                style={{ color: active === link.href ? '#ffffff' : 'var(--color-text-secondary)' }}
+              >
+                {link.label}
+                {/* Active Underline */}
+                {active === link.href && (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-2 left-0 h-[2px] w-full bg-[var(--color-accent)]"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+                {/* Hover Underline */}
+                {active !== link.href && (
+                  <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full opacity-50" />
+                )}
+              </a>
+            ))}
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="sm:hidden flex flex-col items-center justify-center w-8 h-8 gap-1.5"
+            aria-label="Toggle menu"
+          >
+            <motion.span
+              animate={mobileOpen ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }}
+              className="block w-6 h-[2px] bg-white transition-colors"
+            />
+            <motion.span
+              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+              className="block w-6 h-[2px] bg-white transition-colors"
+            />
+            <motion.span
+              animate={mobileOpen ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }}
+              className="block w-6 h-[2px] bg-white transition-colors"
+            />
+          </button>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="sm:hidden flex flex-col items-center justify-center w-8 h-8 gap-1"
-          aria-label="Toggle menu"
-        >
-          <motion.span
-            animate={mobileOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-            className="block w-4 h-[1.5px] bg-[var(--color-text-primary)] rounded-full"
-          />
-          <motion.span
-            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block w-4 h-[1.5px] bg-[var(--color-text-primary)] rounded-full"
-          />
-          <motion.span
-            animate={mobileOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-            className="block w-4 h-[1.5px] bg-[var(--color-text-primary)] rounded-full"
-          />
-        </button>
-      </motion.div>
+      </div>
 
       {/* Mobile dropdown */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="sm:hidden mt-2 glass rounded-2xl p-3 shadow-lg shadow-black/30"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="sm:hidden overflow-hidden bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)]"
           >
-            {links.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => { setActive(link.href); setMobileOpen(false); }}
-                className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-mono tracking-wide transition-colors"
-                style={{
-                  color: active === link.href ? '#eeeef2' : '#6b6b80',
-                  background: active === link.href ? 'rgba(124, 92, 252, 0.1)' : 'transparent',
-                }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
+            <div className="px-4 py-4 flex flex-col gap-4">
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => { setActive(link.href); setMobileOpen(false); }}
+                  className="font-display text-2xl uppercase tracking-wider relative inline-block w-fit"
+                  style={{
+                    color: active === link.href ? '#ffffff' : 'var(--color-text-secondary)',
+                  }}
+                >
+                  {link.label}
+                  {active === link.href && (
+                    <span className="absolute top-1/2 -right-4 w-2 h-2 bg-[var(--color-accent)] rounded-full -translate-y-1/2" />
+                  )}
+                </motion.a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

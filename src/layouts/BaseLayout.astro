@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -86,16 +86,29 @@ const fullName = 'Sonet Shaji';
       "knowsAbout": ["Web Development", "Linux System Administration", "Cybersecurity", "React", "Python", "JavaScript", "Astro"]
     })} />
 
-    <ViewTransitions />
+    <ClientRouter />
+    <script>
+      import Lenis from 'lenis';
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    </script>
     <!-- LinkedIn badge script -->
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
   </head>
   <body class="min-h-screen overflow-x-hidden">
-    <!-- Ambient background blobs -->
-    <div class="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
-      <div class="absolute top-[-15%] left-[5%] h-[500px] w-[500px] rounded-full bg-[var(--color-accent)] opacity-[0.03] blur-[140px]"></div>
-      <div class="absolute top-[30%] right-[-5%] h-[400px] w-[400px] rounded-full bg-purple-600 opacity-[0.025] blur-[120px]"></div>
-      <div class="absolute bottom-[-10%] left-[40%] h-[450px] w-[450px] rounded-full bg-[var(--color-cyber)] opacity-[0.015] blur-[130px]"></div>
+    <!-- Abstract background lines or pure black -->
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-[var(--color-bg-primary)]" aria-hidden="true">
+      <div class="absolute left-[10%] top-0 h-full w-[1px] bg-white opacity-[0.02]"></div>
+      <div class="absolute right-[10%] top-0 h-full w-[1px] bg-white opacity-[0.02]"></div>
+      <div class="absolute right-[50%] top-0 h-full w-[1px] bg-white opacity-[0.02]"></div>
     </div>
     <slot />
   </body>

@@ -1,11 +1,9 @@
-/** Club & Community – Leadership card with tag system */
+/** Club & Community – Leadership card with brutalist theme */
 import ScrollReveal from './motion/ScrollReveal';
-import TiltCard from './motion/TiltCard';
 
 interface ClubRole {
   club: string;
   role: string;
-  color: string;
   description: string;
 }
 
@@ -13,87 +11,68 @@ const roles: ClubRole[] = [
   {
     club: 'IEDC (Innovation & Entrepreneurship Development Centre)',
     role: 'Tech Lead',
-    color: '#6366f1', // Indigo
     description: 'Spearheaded technical initiatives and mentored project teams to foster a culture of innovation during my graduation.',
   },
   {
     club: 'Campus Radio',
     role: 'Editor & Main Coordinator',
-    color: '#f43f5e', // Rose
     description: 'Managed digital content curation and led the coordination of live broadcasts, ensuring seamless campus communication.',
   },
   {
     club: 'Technical Competitions',
     role: 'Hackathon & Debugging Champion',
-    color: '#eab308', // Amber/Gold
     description: 'Secured podium finishes in inter-collegiate hackathons and programming contests, specializing in Python debugging challenges.',
   },
   {
-    club: 'NSS (National Service Scheme)',
+    club: 'NSS',
     role: 'Active Volunteer',
-    color: '#10b981', // Emerald
     description: 'Contributed to community development and social awareness campaigns, building strong leadership and teamwork skills.',
-  },
-  {
-    club: 'Little Kites (IT Mission)',
-    role: 'IT Volunteer',
-    color: '#0ea5e9', // Sky Blue
-    description: 'Promoted digital literacy and Free and Open Source Software (FOSS) awareness during high school.',
   },
 ];
 
 export default function ClubCommunity() {
   return (
     <ScrollReveal>
-      <TiltCard>
-        <div className="bento-tile p-5 sm:p-6 lg:p-8">
-          {/* Header */}
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-accent)]/10 text-lg">
-              🤝
-            </div>
-            <div>
-              <h3 className="font-display text-xl">Leadership & Community</h3>
-              <p className="font-mono text-[10px] tracking-wider text-[var(--color-text-muted)] uppercase">
-                Clubs & Collaborative Work
-              </p>
-            </div>
-          </div>
-
-          {/* Role cards */}
-          <div className="space-y-3">
-            {roles.map((r) => (
-              <div
-                key={r.club}
-                className="group flex items-start gap-3 rounded-lg border border-[var(--color-border-glass)] bg-white/[0.01] p-3 transition-all hover:border-[var(--color-border-glass-hover)] hover:bg-white/[0.03]"
-              >
-                <div
-                  className="mt-0.5 h-2 w-2 shrink-0 rounded-full"
-                  style={{ background: r.color }}
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                    <p className="text-sm font-semibold">{r.club}</p>
-                    <span
-                      className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-                      style={{
-                        background: `${r.color}15`,
-                        color: r.color,
-                        border: `1px solid ${r.color}25`,
-                      }}
-                    >
-                      {r.role}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                    {r.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="solid-card hover-red-border p-6 sm:p-8 relative overflow-hidden group">
+        
+        {/* Subtle background element */}
+        <div className="absolute -bottom-8 -right-8 text-9xl font-display text-[var(--color-bg-primary)] opacity-[0.2] pointer-events-none stroke-current" style={{ WebkitTextStroke: '1px var(--color-border-subtle)' }}>
+           +
         </div>
-      </TiltCard>
+
+        {/* Header */}
+        <div className="mb-8 border-b border-[var(--color-border-subtle)] pb-4 group-hover:border-[var(--color-accent)] transition-colors duration-500">
+          <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-widest text-white group-hover:text-[var(--color-accent)] transition-colors duration-300">Leadership</h3>
+          <p className="font-mono text-xs tracking-widest text-[var(--color-text-secondary)] uppercase mt-2">
+            Clubs & Collaborative Work
+          </p>
+        </div>
+
+        {/* Role list */}
+        <div className="space-y-6 relative z-10">
+          {roles.map((r, i) => (
+            <div
+              key={r.club}
+              className="group/role flex items-start gap-4"
+            >
+              <div className="mt-1 font-mono text-xs text-[var(--color-text-muted)] group-hover/role:text-[var(--color-accent)] transition-colors">
+                 0{i + 1}
+              </div>
+              <div className="flex-1 min-w-0 border-l border-[var(--color-border-subtle)] pl-4 group-hover/role:border-[var(--color-accent)] transition-colors">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <p className="text-sm font-bold uppercase tracking-wide text-white group-hover/role:text-[var(--color-accent)] transition-colors">{r.club}</p>
+                  <span className="bg-[var(--color-bg-primary)] border border-[var(--color-border-hover)] px-2 py-0.5 text-[10px] font-mono tracking-wider uppercase text-[var(--color-text-secondary)]">
+                    {r.role}
+                  </span>
+                </div>
+                <p className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                  {r.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </ScrollReveal>
   );
 }
